@@ -24,7 +24,7 @@ CREATE TABLE Users(
 		userid varchar(50) PRIMARY KEY,
 		email varchar(100) NOT NULL,
 		salt varchar(50) NOT NULL,
-		password_hash varchar(256) NOT NULL
+		password_hash varchar(257) NOT NULL
 	);
 
 CREATE TABLE UserProfiles(
@@ -36,16 +36,18 @@ CREATE TABLE UserProfiles(
 	);
 
 CREATE TABLE PalEvents(
+		id SERIAL PRIMARY KEY,
 		content TEXT,
 		time_stamp TIMESTAMP NOT NULL DEFAULT NOW(),
-		owner varchar(50) PRIMARY KEY REFERENCES Users(userid)
+		owner varchar(50) REFERENCES Users(userid)
 	);
 
 CREATE TABLE PalCorners(
+		id SERIAL PRIMARY KEY,
 		type varchar(50) NOT NULL,
 		description TEXT,
 		created_time TIMESTAMP NOT NULL DEFAULT NOW(),
-		owner varchar(50) PRIMARY KEY REFERENCES Users(userid)
+		owner varchar(50) REFERENCES Users(userid)
 	);
 
 CREATE TABLE Wave(
@@ -65,7 +67,8 @@ CREATE TABLE StatusUpdates(
 		id SERIAL PRIMARY KEY,
 		content TEXT,
 		time_stamp TIMESTAMP NOT NULL DEFAULT NOW(),
-		location varchar(100)
+		location varchar(100),
+		owner varchar(50) REFERENCES Users(userid)
 	);
 
 CREATE TABLE Notifications(
@@ -78,7 +81,7 @@ CREATE TABLE Notifications(
 
 CREATE TABLE Pictures(
 		id SERIAL PRIMARY KEY,
-		caption varchar(50),
+		caption varchar(500),
 		time_stamp TIMESTAMP NOT NULL DEFAULT NOW(),
 		location varchar(100),
 		path_to_file varchar(100) NOT NULL,
@@ -97,7 +100,8 @@ CREATE TABLE ChatMessages(
 		id SERIAL PRIMARY KEY,
 		created_time TIMESTAMP NOT NULL DEFAULT NOW(),
 		content TEXT,
-		conversation INTEGER REFERENCES CharConversations(id)
+		conversation INTEGER REFERENCES CharConversations(id),
+		owner varchar(50) REFERENCES Users(userid)
 	);
 
 
@@ -105,7 +109,7 @@ CREATE TABLE ChatMessages(
 CREATE TABLE PalEventEdits(
 		id SERIAL PRIMARY KEY,
 		editor varchar(50) REFERENCES Users(userid),
-		pal_event_owner varchar(50) REFERENCES Users(userid),
+		pal_event INTEGER REFERENCES PalEvents(id),
 		time_stamp TIMESTAMP NOT NULL DEFAULT NOW(),
 		changes TEXT
 	);
@@ -113,7 +117,7 @@ CREATE TABLE PalEventEdits(
 CREATE TABLE PalCornerEdits(
 		id SERIAL PRIMARY KEY,
 		editor varchar(50) REFERENCES Users(userid),
-		pal_corner_owner varchar(50) REFERENCES Users(userid),
+		pal_corner INTEGER REFERENCES PalCorners(id),
 		time_stamp TIMESTAMP NOT NULL DEFAULT NOW(),
 		changes TEXT
 	);

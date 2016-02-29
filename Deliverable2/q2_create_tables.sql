@@ -2,6 +2,9 @@
 DROP VIEW IF EXISTS infrequent_users;
 DROP VIEW IF EXISTS today_convos;
 
+DROP TABLE IF EXISTS LimitedPalEvents;
+DROP TABLE IF EXISTS LimitedGroupParticipation;
+
 DROP TABLE IF EXISTS ConversationParticipation;
 DROP TABLE IF EXISTS GroupParticipation;
 DROP TABLE IF EXISTS Friendship;

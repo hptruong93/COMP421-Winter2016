@@ -10,5 +10,5 @@ CREATE TABLE LimitedGroupParticipation(
 		id SERIAL PRIMARY KEY,
 		userid varchar(50) REFERENCES Users(userid),
 		group_id INTEGER REFERENCES Groups(id),
-        CHECK (userid<50)  
+        CHECK (LENGTH(userid)<50)  
 	);

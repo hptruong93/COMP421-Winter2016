@@ -3,7 +3,7 @@
 SELECT Users.userid FROM Users INNER JOIN ConversationParticipation ON (Users.userid = ConversationParticipation.userid) GROUP BY Users.userid HAVING COUNT(*) > 40;
 
 -- 2) Get all ids of conversations whose last message is prior to February 2016
-SELECT CharConversations.id FROM CharConversations INNER JOIN ChatMessages ON (CharConversations.id = ChatMessages.conversation) GROUP BY CharConversations.id HAVING MAX(ChatMessages.created_time) < '2016-02-01'::date;
+SELECT ChatConversations.id FROM ChatConversations INNER JOIN ChatMessages ON (ChatConversations.id = ChatMessages.conversation) GROUP BY ChatConversations.id HAVING MAX(ChatMessages.created_time) < '2016-02-01'::date;
 
 -- 3) Count how many messages id that are from users whose last names are longer than 10 characters
 SELECT COUNT(*) FROM (Users AS a INNER JOIN UserProfiles AS b ON (a.userid = b.owner)) AS c INNER JOIN ChatMessages AS d ON (c.userid = d.owner) WHERE LENGTH(c.last_name) < 10;

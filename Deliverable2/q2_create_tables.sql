@@ -1,4 +1,7 @@
 
+DROP VIEW IF EXISTS infrequent_users;
+DROP VIEW IF EXISTS today_convos;
+
 DROP TABLE IF EXISTS ConversationParticipation;
 DROP TABLE IF EXISTS GroupParticipation;
 DROP TABLE IF EXISTS Friendship;
@@ -8,7 +11,7 @@ DROP TABLE IF EXISTS PalEventEdits;
 --------------------------------------------------------------------------
 DROP TABLE IF EXISTS Wave;
 DROP TABLE IF EXISTS ChatMessages;
-DROP TABLE IF EXISTS CharConversations;
+DROP TABLE IF EXISTS ChatConversations;
 DROP TABLE IF EXISTS Pictures;
 DROP TABLE IF EXISTS Notifications;
 DROP TABLE IF EXISTS PalCorners;
@@ -88,7 +91,7 @@ CREATE TABLE Pictures(
 		owner varchar(50) REFERENCES Users(userid)
 	);
 
-CREATE TABLE CharConversations(
+CREATE TABLE ChatConversations(
 		id SERIAL PRIMARY KEY,
 		title varchar(50),
 		created_time TIMESTAMP NOT NULL DEFAULT NOW(),
@@ -100,7 +103,7 @@ CREATE TABLE ChatMessages(
 		id SERIAL PRIMARY KEY,
 		created_time TIMESTAMP NOT NULL DEFAULT NOW(),
 		content TEXT,
-		conversation INTEGER REFERENCES CharConversations(id),
+		conversation INTEGER REFERENCES ChatConversations(id),
 		owner varchar(50) REFERENCES Users(userid)
 	);
 
@@ -139,7 +142,7 @@ CREATE TABLE GroupParticipation(
 CREATE TABLE ConversationParticipation(
 		id SERIAL PRIMARY KEY,
 		userid varchar(50) REFERENCES Users(userid),
-		conversation INTEGER REFERENCES CharConversations(id)
+		conversation INTEGER REFERENCES ChatConversations(id)
 	);
 
 --------------------------------------------------------------------------

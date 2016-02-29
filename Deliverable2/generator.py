@@ -4,7 +4,7 @@ import random
 import hashlib
 import datetime
 
-USER_COUNT = 1000
+USER_COUNT = 10
 PAL_EVENT_MAX = 50
 PAL_CORNER_MAX = 100
 
@@ -13,7 +13,7 @@ STATUS_MAX = 100
 PICTURE_MAX = 100
 NOTIFICATION_MAX = 100
 CONVERSATION_MAX = 50
-MESSAGE_MAX = 100
+MESSAGE_MAX = 20
 
 WAVE_PROBABILITY = 0.5
 FRIEND_PROBABILITY = 0.4
@@ -137,7 +137,7 @@ def chat_conversations():
         limit = random.randrange(0, CONVERSATION_MAX)
         for i in xrange(1, limit + 1):
             conversation_generated += 1
-            do_insert('CharConversations', ['title', 'created_time', 'is_locked', 'initiator'], \
+            do_insert('ChatConversations', ['title', 'created_time', 'is_locked', 'initiator'], \
                             (random_len_string(50), random_date(), False, id_user))
 
 def chat_messages():

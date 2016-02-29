@@ -3,7 +3,7 @@ CREATE TABLE LimitedPalEvents(
 		content TEXT,
 		time_stamp TIMESTAMP NOT NULL DEFAULT NOW(),
 		owner varchar(50) REFERENCES Users(userid),
-        CHECK (content<50)
+        CHECK (LENGTH(content)<50)
 	);
     
 CREATE TABLE LimitedGroupParticipation(
